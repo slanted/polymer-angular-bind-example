@@ -1,0 +1,31 @@
+<link rel="import" href="bower_components/polymer/polymer-element.html">
+<dom-module id="ns-phone">
+    <template>
+        <div ng-app="">
+            {{label}} <input type="text" value="{{value::input}}">
+        </div>
+    </template>
+    <script>
+        class NsPhone extends Polymer.Element {
+            connectedCallback() {
+                super.connectedCallback();
+            }
+            static get is() { return 'ns-phone'}
+            static get properties() {
+                return {
+                    label: {
+                        type: String
+                    },
+                    value: {
+                        type:String,
+                        notify: true,
+                        reflectToAttribute: true
+                    }
+                }
+            }
+        }
+
+        customElements.define(NsPhone.is, NsPhone);
+    </script>
+</dom-module>
+
