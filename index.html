@@ -1,10 +1,15 @@
 <!-- this is how you turn off shadow dom. just put 'shadydom' in the script below
      For some reason this way doesn't work with web components loader.
      I bet it only knows how to selectively load the polyfills
+
+     Demonstration:
+     1. Add ns-phone element to screen
+     2. Show binding for angular 'in'
+     3. Show event-listener way to bind to scope with js
+     4. show 'bind-polymer' directive way
 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.0.14/webcomponents-lite.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script src="bind.js"></script>
 
 <script>
     var module = angular.module('test', []);
@@ -12,7 +17,6 @@
        // do stuff in your controller
     }]);
 </script>
-<link rel="import" href="phone.html">
 
 <body>
 <div ng-app="test" >
