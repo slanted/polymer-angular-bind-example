@@ -1,4 +1,5 @@
 <link rel="import" href="bower_components/polymer/polymer-element.html">
+<script src="https://unpkg.com/string-mask@0.3.0/src/string-mask.js"></script>
 <dom-module id="ns-phone">
     <template>
         <div ng-app="">
@@ -13,14 +14,58 @@
             static get is() { return 'ns-phone'}
             static get properties() {
                 return {
+                    country: {
+                        type: String
+                    },
+                    strings: {
+                      type: Object,
+                      value: {
+                          en: {
+                              label: 'Phone'
+                          },
+                          de: {
+                              label: 'Telefon'
+                          },
+                          es: {
+                              label: 'Telefono'
+                          }
+                      }
+                    },
+                    rules: {
+                      type: Object,
+                      value: {
+                        US: {
+                           mask: 'xxx-xxx-xxxx'
+                        },
+                        DE: {
+                           mask: 'xxx-xxxx'
+                        }
+                      }
+                    },
                     label: {
                         type: String
                     },
                     value: {
                         type:String,
                         notify: true,
-                        reflectToAttribute: true
+                        reflectToAttribute: true,
+                        observer: 'formatNumber'
+                    },
+                    formattedValue: {
+                        type:String,
+                        notify: true,
+                        reflectToAttribute: true,
+                        observer: 'formatNumber'
                     }
+                }
+            }
+
+            formatNumber(newVal, oldVal) {
+                var rule = this.rules[this.country];
+                if (rule) {
+                    var formatter = new StringMask('(###) ###-####');
+                    var formattedValue = formatter.apply(this.value);
+                    console.log("formatted value:"+formattedValue);
                 }
             }
         }

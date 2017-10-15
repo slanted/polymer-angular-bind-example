@@ -20,14 +20,15 @@
         <br>
         Angular phone <input ng-model="phone"/>
         <br><br>
-        <ns-phone bind-polymer label="Phone" value="{{phone}}"></ns-phone>
+        <ns-phone bind-polymer label="Phone" value="{{phone}}" country="US" formatted-value="{{formattedValue}}"></ns-phone>
 
         <ns-phone bind-polymer label="Phone" value="{{number}}"></ns-phone>
 
-        <ns-phone id="unbound" label="Phone" value="{{phone}}" value-changed="test"></ns-phone>
+        <ns-phone id="unbound" label="Phone" value="{{phone}}"></ns-phone>
         <br><br>
         <h1>Phone is: {{phone}}</h1>
         <h1>Number is: {{number}}</h1>
+        <h1>Formatted Value is: {{formattedValue}}</h1>
 
         <script>
         </script>
@@ -35,9 +36,6 @@
 </div>
 
 <script>
-    function test() {
-        console.log("test!!!");
-    }
 
     var el = document.getElementById('unbound');
     el.addEventListener('value-changed', function() {
