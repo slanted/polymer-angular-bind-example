@@ -2,9 +2,7 @@
 <script src="https://unpkg.com/string-mask@0.3.0/src/string-mask.js"></script>
 <dom-module id="ns-phone">
     <template>
-        <div ng-app="">
             {{label}} <input type="text" value="{{value::input}}">
-        </div>
     </template>
     <script>
         class NsPhone extends Polymer.Element {
@@ -35,10 +33,11 @@
                       type: Object,
                       value: {
                         US: {
-                           mask: 'xxx-xxx-xxxx'
+                           mask: '(###) ###-####',
+                           maxLength: 10
                         },
                         DE: {
-                           mask: 'xxx-xxxx'
+                           mask: '###-####'
                         }
                       }
                     },
@@ -50,12 +49,6 @@
                         notify: true,
                         reflectToAttribute: true,
                         observer: 'formatNumber'
-                    },
-                    formattedValue: {
-                        type:String,
-                        notify: true,
-                        reflectToAttribute: true,
-                        observer: 'formatNumber'
                     }
                 }
             }
@@ -63,7 +56,10 @@
             formatNumber(newVal, oldVal) {
                 var rule = this.rules[this.country];
                 if (rule) {
-                    var formatter = new StringMask('(###) ###-####');
+                    var formatter = new StringMask(rule.mask);
+                    if (rule.maxLength && newVal && (newVal.length > rule.maxLength)) {
+                        this.value = oldVal;
+                    }
                     var formattedValue = formatter.apply(this.value);
                     console.log("formatted value:"+formattedValue);
                 }
