@@ -20,7 +20,34 @@
         <br>
         Angular phone <input ng-model="phone"/>
         <br><br>
-        phone: {{phone}}
+        <ns-phone bind-polymer label="Phone" value="{{phone}}"></ns-phone>
+
+        <ns-phone bind-polymer label="Phone" value="{{number}}"></ns-phone>
+
+        <ns-phone id="unbound" label="Phone" value="{{phone}}" value-changed="test"></ns-phone>
+        <br><br>
+        <h1>Phone is: {{phone}}</h1>
+        <h1>Number is: {{number}}</h1>
+
+        <script>
+        </script>
     </div>
 </div>
+
+<script>
+    function test() {
+        console.log("test!!!");
+    }
+
+    var el = document.getElementById('unbound');
+    el.addEventListener('value-changed', function() {
+        var scope = angular.element(document.getElementById("controller")).scope();
+        if(!scope.$$phase) { // if you don't do this, you get a $digest already in progress
+            scope.$apply(function() {
+                scope.phone = el.value;
+            });
+        }
+    });
+</script>
+
 </body>
